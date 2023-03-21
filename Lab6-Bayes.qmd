@@ -1,0 +1,163 @@
+---
+title: "Bayes-Lab6"
+format: html
+editor: visual
+execute:
+  freeze: auto
+  echo: true
+  message: false
+  warning: false
+---
+
+# Lab 6 - Bayesian Data Analysis
+
+## Instructions
+
+-   If you are fitting a model, display the model output in a neatly formatted table. (The `tidy` and `kable` functions can help!).
+
+-   If you are creating a plot, use clear labels for all axes, titles, etc.
+
+-   Commit and push your work to GitHub regularly, at least after each exercise. Write short and informative commit messages.
+
+-   When you're done, we should be able to knit the final version of the QMD in your GitHub as a HTML.
+
+    ## A simple Bayesian linear regression: Power posing and testosterone
+
+```{r}
+# get data for lab
+#install from github
+#devtools::install_github("bnicenboim/bcogsci")
+library(bcogsci) # dataset for lab
+library(tidyverse) # tidying and viz
+library(brms) # bayes regression
+library(emmeans) # marginal means 
+library(modelsummary) # tables
+library(marginaleffects) 
+library(tidybayes) # plot trace
+library(easystats) # bayestestR and see
+```
+
+```{r}
+
+powerpose <- bcogsci::df_powerpose
+
+head(powerpose)
+```
+
+The data set, which was originally published in Carney, Cuddy, and Yap ([2010](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-carney2010power)) but released in modified form by Fosse ([2016](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-FossePowerPose)), shows the testosterone levels of 39 different individuals, before and after treatment, where treatment refers to each individual being assigned to a high power pose or a low power pose. In the original paper by Carney, Cuddy, and Yap ([2010](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-carney2010power)), the unit given for testosterone measurement (estimated from saliva samples) was picograms per milliliter (pg/ml). One picogram per milliliter is 0.001 nanogram per milliliter (ng/ml).
+
+The research hypothesis is that on average, assigning a subject to a high power pose vs. a low power pose will lead to higher testosterone levels after treatment. Assuming that you know nothing about normal ranges of testosterone using salivary measurement.
+
+Investigate this claim using a linear model and the default priors of `brms`. You'll need to estimate the effect of a new variable that encodes the change in testosterone.
+
+In this assignment you will run both a frequentist and a Bayesian regression analysis.
+
+I would look at the `bayestestR` package and see what it can do.
+
+```{r}
+
+
+```
+
+1.  Explore the data
+
+```{r}
+
+```
+
+2.  Run a frequentist regression and interpret the results
+
+```{r}
+
+```
+
+3.  Run a Bayesian regression.
+
+-   First, set `chains` to 2 and `iter` to 100.
+
+```{r}
+
+```
+
+-   Look at the summary. What is wrong here?
+
+    -   Try increasing `chains` = 4 and `iter` = 5000
+
+    -   How did the MCMC sampler do when we increased number of chains and iterations? Include a discussion of the diagnostics: trace plots, $\hat{R}$, ESS
+
+        estimates.
+
+```{r}
+```
+
+4.  Test regression assumptions
+
+    ```{r}
+
+
+    ```
+
+5.  Describe the posterior distribution
+
+-   What is the mean in each group? What is the mean and median difference in the testosterone between high and low power pose groups? What is the probability of direction (pd)?
+
+    ```{r}
+
+
+    ```
+
+-   What are the 89% CIs (HDI)for the mean difference between high and low power pose groups? Plot them using the `bayestestR` function `hdi`
+
+    ```{r}
+
+    ```
+
+-   Before we can test if the difference between groups is 0, we need to re-run the model with a weakly informative prior and we need to make sure we sample from the prior:
+
+    -   Use a normal prior with a mean of 0 and a standard deviation of 10.
+
+        ```{r}
+
+        prior1 <- prior("priordist", coef=)
+
+        ```
+
+        -   Re-run the model with the prior and set the argument `sample_prior` = true
+
+            ```{r}
+            # you can set individual coefs or a class of params (for bs)
+
+
+            ```
+
+        -   Is there evidence that the difference is different from zero? How strong is the evidence?
+
+            ```{r}
+
+            ```
+
+-   Plot the posterior means and predictions for each group. The `tidybayes` package has some useful functions for this. https://cran.r-project.org/web/packages/tidybayes/vignettes/tidy-brms.html#posterior-means-and-predictions
+
+    ```{r}
+
+    ```
+
+5.  What are your conclusions based on the results? Use the `report` function from `easystats` to help (i.e., do not just copy it).
+
+## Priors
+
+1.  The priors for this experiment were quite arbitrary. Is our posterior distribution (mean) sensitive to the priors that we select? Perform a sensitivity analysis to find out whether the posterior is affected by our choice of priors. Try at least 3 different priors. Feel free to go crazy with the priors :). Read this blog for ideas: https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations
+
+    ```{r}
+
+
+    ```
+
+    ## Model Comparisons
+
+    1.  Use the original dataset and test if the sex factor should be included in the model using a bayes factor. You might have to add `save_pars = save_pars(all=TRUE)`
+
+        ```{r}
+        ```
+
+-   How much evidence is there for adding the sex variable?

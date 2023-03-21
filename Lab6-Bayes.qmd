@@ -44,7 +44,7 @@ powerpose <- bcogsci::df_powerpose
 head(powerpose)
 ```
 
-The data set, which was originally published in Carney, Cuddy, and Yap ([2010](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-carney2010power)) but released in modified form by Fosse ([2016](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-FossePowerPose)), shows the testosterone levels of 39 different individuals, before and after treatment, where treatment refers to each individual being assigned to a high power pose or a low power pose. In the original paper by Carney, Cuddy, and Yap ([2010](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-carney2010power)), the unit given for testosterone measurement (estimated from saliva samples) was picograms per milliliter (pg/ml). One picogram per milliliter is 0.001 nanogram per milliliter (ng/ml).
+The data set, which was originally published in Carney, Cuddy, and Yap ([2010](https://faculty.haas.berkeley.edu/dana_carney/power.poses.PS.2010.pdf)) but released in modified form by Fosse ([2016](https://vasishth.github.io/bayescogsci/book/ch-reg.html#ref-FossePowerPose)), shows the testosterone levels of 39 different individuals, before and after treatment, where treatment refers to each individual being assigned to a high power pose or a low power pose. In the original paper by Carney, Cuddy, and Yap ([2010](https://faculty.haas.berkeley.edu/dana_carney/power.poses.PS.2010.pdf)), the unit given for testosterone measurement (estimated from saliva samples) was picograms per milliliter (pg/ml). One picogram per milliliter is 0.001 nanogram per milliliter (ng/ml).
 
 The research hypothesis is that on average, assigning a subject to a high power pose vs. a low power pose will lead to higher testosterone levels after treatment. Assuming that you know nothing about normal ranges of testosterone using salivary measurement.
 
@@ -160,4 +160,4 @@ I would look at the `bayestestR` package and see what it can do.
         ```{r}
         ```
 
--   How much evidence is there for adding the sex variable?
+-   How much evidence is there for adding sex variable into the model?

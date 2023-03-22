@@ -98,7 +98,7 @@ In this assignment you will run both a frequentist and a Bayesian regression ana
 
 4.  Describe the posterior distribution
 
--   Use `pp_check` to get a visualization of how well our model fits. How does it look?
+-   Use `pp_check` to get a visualization of how well our model fits. How does it look? Use `ndraws=100`
 
     ```{r}
 
